@@ -5,6 +5,7 @@ class BooksController < ApplicationController
     @book = Book.find(params[:id])
     @books = Book.new
     @user = @book.user
+    @book_comment = BookComment.new
   end
 
   def index
@@ -48,7 +49,7 @@ class BooksController < ApplicationController
   private
 
   def book_params
-    params.require(:book).permit(:title, :body)
+    params.require(:book).permit(:title, :body, :favorite)
   end
   
   def baria_user
