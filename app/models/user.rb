@@ -18,7 +18,22 @@ class User < ApplicationRecord
   def followed_by?(user)
     passive_relationships.find_by(follower_id: user.id).present?
   end
-
-  validates :name, length: {maximum: 20, minimum: 2}, uniqueness: true
+  
+  def self.looks(searches, words)
+      
+        if searches == "perfect_match"
+            @user = User.where("name LIKE ?", "#{words}")
+            
+        elsif searches == "forward_match"
+            @user = User.where("name LIKE ?", "#{words}%")
+            
+        elsif searches == "backword_match"
+            @user = User.where("name LIKE ?", "%#{words}")
+            
+        else
+            @user = User.where("name LIKE ?", "%#{words}%")
+        end
+  end
+   validates :name, length: {maximum: 20, minimum: 2}, uniqueness: true
    validates :introduction, length:{maximum: 50}
 end
