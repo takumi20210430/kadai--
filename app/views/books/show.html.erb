@@ -27,13 +27,15 @@
           <td>コメント件数：<%= @book.book_comments.count %></td>
         </tr>
       </table>
-        <%= render 'book_comments/book_comment',book: @book %>
-      <div class="new-comment">
-      <%= form_with(model:[@book, @book_comment], local: true) do |f| %>
-        <%= f.text_area :comment, rows:'5',placeholder: "コメントをここに" %>
-        <%= f.submit "送信する" %>
-      <% end %>
-      </div>
+      <table id= "comments_area">
+        <%= render 'book_comments/book_comment',book_comments: @book_comments %>
+      </table>
+          <div class="new-comment">
+            <%= form_with(model:[@book, @book_comment], remote: true) do |f| %>
+              <%= f.text_area :comment, size:'90x5',placeholder: "コメントをここに" %></br>
+              <%= f.submit "送信する" %>
+            <% end %>
+          </div>
     </div>
   </div>
 </div>
